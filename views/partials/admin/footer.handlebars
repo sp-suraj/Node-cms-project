@@ -1,0 +1,74 @@
+<footer class="sticky-footer">
+    <div class="container">
+        <div class="text-center">
+            <small>Copyright © Your Website 2022</small>
+        </div>
+    </div>
+</footer>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/js/jquery/jquery.min.js"></script>
+    <script src="/js/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/js/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/js/sb-admin.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Bootstrap switch -->
+    <script src="/js/bootstrap-switch.min.js"></script>
+    <script>
+        
+        $("[name = 'approveComment']").bootstrapSwitch();
+
+        $(document).ready(()=>{
+
+            $("[name = 'approveComment']").on('switchChange.bootstrapSwitch',function(e, data){
+
+                const id = $(this).attr('data-id');
+                
+                $.ajax({
+
+                    type: "POST",
+                    url: "/admin/comments/approve-comment",
+                    data: {id: id, approveComment:data},
+                    cache: false,
+                    success: function(data) {
+                        
+                        toastr.success(`Comment ${data._id} updated successfully`)
+
+                    }
+
+
+                })
+            });
+        })
+    
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+            labels: ['Posts', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [{{postCount}}, {{commentCount}}, {{categoryCount}}, 0, 0, 0],
+                borderWidth: 1
+            }]
+            },
+            options: {
+            scales: {
+                y: {
+                beginAtZero: true
+                }
+            }
+            }
+        });
+    </script>
