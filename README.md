@@ -1,7 +1,7 @@
 **How to setup**-
 1. run `npm install`
 
-2. Connect to your mongodb database by canging mongodb url
+2. Connect to your mongodb database by changing mongodb url
 
 **
 
